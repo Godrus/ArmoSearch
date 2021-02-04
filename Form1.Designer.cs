@@ -39,7 +39,7 @@ namespace ArmoSearch
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.iList = new System.Windows.Forms.ImageList(this.components);
             this.fbDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeView = new System.Windows.Forms.TreeView();
             this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnStopCon = new System.Windows.Forms.Button();
@@ -57,24 +57,25 @@ namespace ArmoSearch
             // timerSearch
             // 
             this.timerSearch.Interval = 1;
+            this.timerSearch.Tick += new System.EventHandler(this.timerSearch_Tick);
             // 
             // lblCurFolder
             // 
             this.lblCurFolder.AutoSize = true;
             this.lblCurFolder.Location = new System.Drawing.Point(12, 16);
             this.lblCurFolder.Name = "lblCurFolder";
-            this.lblCurFolder.Size = new System.Drawing.Size(79, 13);
+            this.lblCurFolder.Size = new System.Drawing.Size(76, 13);
             this.lblCurFolder.TabIndex = 8;
-            this.lblCurFolder.Text = "Current Folder: ";
+            this.lblCurFolder.Text = "Current folder: ";
             // 
             // lblTime
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Location = new System.Drawing.Point(267, 38);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(70, 13);
+            this.lblTime.Size = new System.Drawing.Size(68, 13);
             this.lblTime.TabIndex = 7;
-            this.lblTime.Text = "Time Search:";
+            this.lblTime.Text = "Time search:";
             // 
             // lblTotal
             // 
@@ -101,7 +102,7 @@ namespace ArmoSearch
             this.groupBox4.Controls.Add(this.lblTotal);
             this.groupBox4.Controls.Add(this.lblFound);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox4.Location = new System.Drawing.Point(0, 390);
+            this.groupBox4.Location = new System.Drawing.Point(0, 434);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(395, 60);
             this.groupBox4.TabIndex = 17;
@@ -115,16 +116,16 @@ namespace ArmoSearch
             this.iList.Images.SetKeyName(0, "File Explorer.ico");
             this.iList.Images.SetKeyName(1, "Microsoft Notepad.ico");
             // 
-            // treeView1
+            // treeView
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.iList;
-            this.treeView1.Location = new System.Drawing.Point(0, 129);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(395, 256);
-            this.treeView1.TabIndex = 6;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Top;
+            this.treeView.ImageIndex = 0;
+            this.treeView.ImageList = this.iList;
+            this.treeView.Location = new System.Drawing.Point(0, 129);
+            this.treeView.Name = "treeView";
+            this.treeView.SelectedImageIndex = 0;
+            this.treeView.Size = new System.Drawing.Size(395, 256);
+            this.treeView.TabIndex = 6;
             // 
             // btnSearch
             // 
@@ -150,6 +151,7 @@ namespace ArmoSearch
             // 
             // btnStopCon
             // 
+            this.btnStopCon.Enabled = false;
             this.btnStopCon.Location = new System.Drawing.Point(261, 19);
             this.btnStopCon.Name = "btnStopCon";
             this.btnStopCon.Size = new System.Drawing.Size(122, 23);
@@ -162,7 +164,7 @@ namespace ArmoSearch
             // 
             this.txtFileName.Location = new System.Drawing.Point(6, 14);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(250, 20);
+            this.txtFileName.Size = new System.Drawing.Size(377, 20);
             this.txtFileName.TabIndex = 3;
             // 
             // groupBox2
@@ -178,7 +180,7 @@ namespace ArmoSearch
             // 
             // btnSelectFolder
             // 
-            this.btnSelectFolder.Location = new System.Drawing.Point(230, 12);
+            this.btnSelectFolder.Location = new System.Drawing.Point(299, 12);
             this.btnSelectFolder.Name = "btnSelectFolder";
             this.btnSelectFolder.Size = new System.Drawing.Size(84, 23);
             this.btnSelectFolder.TabIndex = 2;
@@ -190,7 +192,7 @@ namespace ArmoSearch
             // 
             this.txtPath.Location = new System.Drawing.Point(6, 14);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(218, 20);
+            this.txtPath.Size = new System.Drawing.Size(287, 20);
             this.txtPath.TabIndex = 1;
             // 
             // groupBox1
@@ -209,14 +211,15 @@ namespace ArmoSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 450);
+            this.ClientSize = new System.Drawing.Size(395, 494);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.treeView);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "ArmoSearch";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -238,7 +241,7 @@ namespace ArmoSearch
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ImageList iList;
         private System.Windows.Forms.FolderBrowserDialog fbDialog;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnStopCon;
